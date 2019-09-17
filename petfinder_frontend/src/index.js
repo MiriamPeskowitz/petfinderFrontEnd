@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	app.attachEventListeners();
 	//creates instance of the App and calls attachEventListeners to it 
 
-	app.adapter.fetchNotes().then(app.createNotes
+	app.adapter.fetchNotes().then(app.createNotes)
 })
 
 

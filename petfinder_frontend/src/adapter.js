@@ -2,7 +2,7 @@
 //hides away some of the implementation details of all the fetches 
 class Adapter {
 	constructor() {
-		this.baseURL = 'http://localhost:3000/api/v1';
+		this.baseURL = `http://localhost:3000/api/v1`;
 		this.headers = {
 			'Content-Type': 'application/json',
 			Accept: 'application/json',
@@ -14,13 +14,14 @@ class Adapter {
 	}
 
 	updateNote(id, body) {
+		return this.patch(`${this.baseURL}/notes/${id}`, body);
+	}
 
 	patch(url, body) {
 		return fetch(url, {
 			method: 'PATCH',
 			headers: this.headers
-			body: JSON.stringify(body
-		}).then(res => res.json())
+			body: JSON.stringify(body}).then(res => res.json())
 	}
 
 	get(url) {

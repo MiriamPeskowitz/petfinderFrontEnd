@@ -10,43 +10,44 @@ class App {
 	}
 
 	attachEventListeners() {
-		document.querySelector('#petlist').addEventListener('click', e => {
-			const id = parseInt(e.target.dataset.id)
-			const pet = Pet.findById(id); 
-			document.querySelector("#update").innerHTML = pet.renderUpdateForm()
-		})
-
-	
-		document.querySelector('#update').addEventListener('submit', e => {
-			this.handleFormSubmit() 
+		document.querySelector('#petlist').addEventListener('click', this.handleEditClick()); 
+		document.querySelector('#update').addEventListener('submit', this.handleFormSubmit()); 
 	}
 
 
 	createPets(pets) {
-			pets.forEach(pet => {
-				new Pet(pet)	
+		pets.forEach(pet => {
+			new Pet(pet)	
 		}) 
 		this.addPets()
 	}
 
 	addNotes() {
-		document.querySelector('#petlist').innerHTML = ''
+		document.querySelector('#petlist').innerHTML = '';
 		Pet.all.forEach( 
-			pet => (document.querySelector('#petlist').innerHTML += pet.renderItemFromList();
+			pet => (document.querySelector('#petlist').innerHTML += pet.renderItemFromList())
 		)
 	}
 
 	handleFormSubmit(e) {
 		e.preventDefault()
 		const id = parseInt(e.target.dataset.id)
-		const note = Pet.findById(id)
+		const pet = Pet.findById(id)
 		const title = e.target.querySelector('input').value
-		const content = e.target.querySelector('textarea').value
-		const bodyJson = { title, content, image, contact``};
+		const content = e.target.querySelector('#content').value
+		const image = e.target.querySelector('#image').value
+		const contact = e.target.querySelector('#contact').value
+		const bodyJson = { title, content, image, contact};
 
 		this.adapter.updateNote(pet.id, bodyJson).then(updatedPet => console.log(updatedPet))
-	});
+	};
 
+
+	handleEditClick(e) {
+		const id = parseInt(e.target.dataset.id)
+		const pet = Pet.findById(id); 
+		document.querySelector("#update").innerHTML = pet.renderUpdateForm()
+		}
 	}
 
 
